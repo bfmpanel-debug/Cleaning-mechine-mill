@@ -219,8 +219,8 @@ const App: React.FC = () => {
   const isInputEmpty = homeMachineInput.trim() === "";
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900 pb-12 overflow-x-hidden font-sans flex flex-col">
-      <header className="bg-slate-900 border-b-4 border-red-600 text-white py-5 shadow-2xl mb-8 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-100 text-slate-900 overflow-x-hidden font-sans flex flex-col">
+      <header className="bg-slate-900 border-b-4 border-red-600 text-white py-5 shadow-2xl relative overflow-hidden flex-shrink-0">
         <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
         <div className="container mx-auto px-6 relative flex flex-row items-center gap-4">
           <div className="bg-white p-1.5 rounded-xl shadow-lg transform transition-transform hover:rotate-3 duration-300">
@@ -246,7 +246,7 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 max-w-2xl flex-grow">
+      <main className="container mx-auto px-4 max-w-2xl flex-grow pt-8 pb-12">
         {message && (
           <div className={`fixed top-8 left-1/2 -translate-x-1/2 z-50 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border-b-4 transition-all duration-500 animate-in slide-in-from-top-4 ${
             message.type === 'success' ? 'bg-emerald-600 text-white border-emerald-800' : 'bg-red-600 text-white border-red-800'
@@ -257,194 +257,182 @@ const App: React.FC = () => {
         )}
 
         {view === 'HOME' && (
-          <>
-            <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
-              {/* SEARCH BOX UTAMA */}
-              <div className="bg-white p-8 rounded-[2.5rem] shadow-2xl border border-slate-200 relative overflow-hidden">
-                 <div className="absolute top-0 left-0 w-full h-2 bg-red-600"></div>
-                 <div className="relative z-10">
-                   <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-4 text-center">Masukan Nomor Mesin</label>
-                   <div className="relative group">
-                     <input 
-                      type="text" 
-                      placeholder="Contoh: M3001" 
-                      className="w-full bg-slate-50 border-2 border-slate-200 px-6 py-5 rounded-2xl text-center text-2xl font-black text-slate-900 uppercase placeholder:text-slate-300 focus:border-red-500 focus:bg-white transition-all outline-none shadow-inner"
-                      value={homeMachineInput}
-                      onChange={(e) => setHomeMachineInput(e.target.value)}
-                     />
-                     <div className="absolute inset-0 rounded-2xl pointer-events-none group-focus-within:ring-4 ring-red-500/10 transition-all"></div>
-                   </div>
-                   <p className="text-center text-[10px] text-slate-400 font-bold mt-4 italic uppercase">* Scan QR atau ketik nomor mesin</p>
+          <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
+            {/* SEARCH BOX UTAMA */}
+            <div className="bg-white p-8 rounded-[2.5rem] shadow-2xl border border-slate-200 relative overflow-hidden">
+               <div className="absolute top-0 left-0 w-full h-2 bg-red-600"></div>
+               <div className="relative z-10">
+                 <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-4 text-center">Masukan Nomor Mesin</label>
+                 <div className="relative group">
+                   <input 
+                    type="text" 
+                    placeholder="Contoh: M3001" 
+                    className="w-full bg-slate-50 border-2 border-slate-200 px-6 py-5 rounded-2xl text-center text-2xl font-black text-slate-900 uppercase placeholder:text-slate-300 focus:border-red-500 focus:bg-white transition-all outline-none shadow-inner"
+                    value={homeMachineInput}
+                    onChange={(e) => setHomeMachineInput(e.target.value)}
+                   />
+                   <div className="absolute inset-0 rounded-2xl pointer-events-none group-focus-within:ring-4 ring-red-500/10 transition-all"></div>
                  </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <button 
-                  onClick={handleGoToUpdate} 
-                  className={`group p-6 rounded-[2rem] shadow-xl transition-all duration-300 transform active:scale-95 flex flex-col items-center justify-center gap-2 ${
-                    isInputEmpty 
-                    ? 'bg-slate-300 text-slate-500 cursor-not-allowed opacity-60' 
-                    : 'bg-red-600 text-white hover:shadow-red-200 hover:-translate-y-1'
-                  }`}
-                >
-                  <div className={`p-3 rounded-xl transition-colors ${
-                    isInputEmpty ? 'bg-slate-400' : 'bg-white/20 group-hover:bg-white group-hover:text-red-600'
-                  }`}>
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4"></path></svg>
-                  </div>
-                  <span className="font-black uppercase tracking-tight text-sm">Update Data</span>
-                </button>
-
-                <button 
-                  onClick={handleGoToCheck} 
-                  className={`group p-6 rounded-[2rem] shadow-xl border-2 transition-all duration-300 transform active:scale-95 flex flex-col items-center justify-center gap-2 ${
-                    isInputEmpty 
-                    ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60' 
-                    : 'bg-white text-slate-800 border-slate-200 hover:border-red-500 hover:text-red-600 hover:-translate-y-1'
-                  }`}
-                >
-                  <div className={`p-3 rounded-xl transition-colors ${
-                    isInputEmpty ? 'bg-slate-200 text-slate-300' : 'bg-slate-100 group-hover:bg-red-600 group-hover:text-white'
-                  }`}>
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                  </div>
-                  <span className="font-black uppercase tracking-tight text-sm">Check Data</span>
-                </button>
-              </div>
+                 <p className="text-center text-[10px] text-slate-400 font-bold mt-4 italic uppercase">* Scan QR atau ketik nomor mesin</p>
+               </div>
             </div>
-            
-            {/* FOOTER KHUSUS HOME */}
-            <footer className="mt-16 text-center pb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5 flex-wrap">
-                Maintenance Logger &copy; 2026 Made With <span className="text-red-600 animate-pulse text-sm">❤️</span> By BFMI19048 All rights reserved
-              </p>
-            </footer>
-          </>
+
+            <div className="grid grid-cols-2 gap-4">
+              <button 
+                onClick={handleGoToUpdate} 
+                className={`group p-6 rounded-[2rem] shadow-xl transition-all duration-300 transform active:scale-95 flex flex-col items-center justify-center gap-2 ${
+                  isInputEmpty 
+                  ? 'bg-slate-300 text-slate-500 cursor-not-allowed opacity-60' 
+                  : 'bg-red-600 text-white hover:shadow-red-200 hover:-translate-y-1'
+                }`}
+              >
+                <div className={`p-3 rounded-xl transition-colors ${
+                  isInputEmpty ? 'bg-slate-400' : 'bg-white/20 group-hover:bg-white group-hover:text-red-600'
+                }`}>
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4"></path></svg>
+                </div>
+                <span className="font-black uppercase tracking-tight text-sm">Update Data</span>
+              </button>
+
+              <button 
+                onClick={handleGoToCheck} 
+                className={`group p-6 rounded-[2rem] shadow-xl border-2 transition-all duration-300 transform active:scale-95 flex flex-col items-center justify-center gap-2 ${
+                  isInputEmpty 
+                  ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60' 
+                  : 'bg-white text-slate-800 border-slate-200 hover:border-red-500 hover:text-red-600 hover:-translate-y-1'
+                }`}
+              >
+                <div className={`p-3 rounded-xl transition-colors ${
+                  isInputEmpty ? 'bg-slate-200 text-slate-300' : 'bg-slate-100 group-hover:bg-red-600 group-hover:text-white'
+                }`}>
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+                <span className="font-black uppercase tracking-tight text-sm">Check Data</span>
+              </button>
+            </div>
+          </div>
         )}
 
         {view === 'UPDATE' && (
-          <div className="animate-in slide-in-from-bottom-8">
-            <div className="bg-white rounded-[2.5rem] shadow-2xl border border-slate-200 overflow-hidden">
-              <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h2 className="text-lg font-black text-slate-800 uppercase italic">Input <span className="text-red-600">Maintenance</span></h2>
-                <button onClick={() => setView('HOME')} className="p-2 hover:bg-red-100 hover:text-red-600 rounded-xl transition-all">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-              </div>
-              <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 ml-1">Nomor Mesin</label>
-                    <input required type="text" placeholder="M3001" className="w-full px-5 py-4 rounded-2xl border-2 border-slate-200 bg-slate-50 focus:border-red-500 outline-none transition-all font-black uppercase" value={formData.nomorMesin} onChange={e => setFormData({...formData, nomorMesin: e.target.value})} />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 ml-1">Nama Operator</label>
-                    <input required type="text" placeholder="Ketik Nama Anda" className="w-full px-5 py-4 rounded-2xl border-2 border-slate-200 bg-slate-50 focus:border-red-500 outline-none transition-all font-bold" value={formData.namaOperator} onChange={e => setFormData({...formData, namaOperator: e.target.value})} />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 ml-1">Tanggal Cleaning</label>
-                    <input required type="date" className="w-full px-5 py-4 rounded-2xl border-2 border-slate-200 bg-slate-50 focus:border-red-500 outline-none transition-all font-bold" value={formData.tanggalCleaning} onChange={e => setFormData({...formData, tanggalCleaning: e.target.value})} />
-                  </div>
-                </div>
-                <button disabled={loading} type="submit" className="w-full bg-red-600 text-white font-black text-lg py-5 rounded-2xl hover:shadow-2xl hover:shadow-red-200 transition-all active:scale-95 disabled:opacity-50">
-                  {loading ? 'MENYIMPAN...' : 'SIMPAN LOG SEKARANG'}
-                </button>
-              </form>
+          <div className="bg-white rounded-[2.5rem] shadow-2xl border border-slate-200 overflow-hidden animate-in slide-in-from-bottom-8">
+            <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+              <h2 className="text-lg font-black text-slate-800 uppercase italic">Input <span className="text-red-600">Maintenance</span></h2>
+              <button onClick={() => setView('HOME')} className="p-2 hover:bg-red-100 hover:text-red-600 rounded-xl transition-all">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </button>
             </div>
-            
-            {/* FOOTER KHUSUS UPDATE */}
-            <footer className="mt-8 text-center pb-8">
-              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.15em]">
-                Copyright &copy; 2026 <a href="https://bungasari.com/" target="_blank" rel="noopener noreferrer" className="text-red-600 font-black hover:underline decoration-red-600 underline-offset-4">PT Bungasari Flour Mills Indonesia</a>.
-              </p>
-            </footer>
+            <form onSubmit={handleSubmit} className="p-8 space-y-6">
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 ml-1">Nomor Mesin</label>
+                  <input required type="text" placeholder="M3001" className="w-full px-5 py-4 rounded-2xl border-2 border-slate-200 bg-slate-50 focus:border-red-500 outline-none transition-all font-black uppercase" value={formData.nomorMesin} onChange={e => setFormData({...formData, nomorMesin: e.target.value})} />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 ml-1">Nama Operator</label>
+                  <input required type="text" placeholder="Ketik Nama Anda" className="w-full px-5 py-4 rounded-2xl border-2 border-slate-200 bg-slate-50 focus:border-red-500 outline-none transition-all font-bold" value={formData.namaOperator} onChange={e => setFormData({...formData, namaOperator: e.target.value})} />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 ml-1">Tanggal Cleaning</label>
+                  <input required type="date" className="w-full px-5 py-4 rounded-2xl border-2 border-slate-200 bg-slate-50 focus:border-red-500 outline-none transition-all font-bold" value={formData.tanggalCleaning} onChange={e => setFormData({...formData, tanggalCleaning: e.target.value})} />
+                </div>
+              </div>
+              <button disabled={loading} type="submit" className="w-full bg-red-600 text-white font-black text-lg py-5 rounded-2xl hover:shadow-2xl hover:shadow-red-200 transition-all active:scale-95 disabled:opacity-50">
+                {loading ? 'MENYIMPAN...' : 'SIMPAN LOG SEKARANG'}
+              </button>
+            </form>
           </div>
         )}
 
         {view === 'CHECK' && (
-          <div className="animate-in fade-in">
-            <div className="bg-white rounded-[2.5rem] shadow-2xl border border-slate-200 overflow-hidden">
-              <div className="p-6 border-b border-slate-100">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-lg font-black text-slate-800 uppercase italic">Audit <span className="text-red-600">History</span></h2>
-                  <div className="flex gap-2">
-                    <button onClick={fetchData} className="p-2 text-red-600 hover:bg-red-50 rounded-xl transition-all">
-                       <svg className={`w-6 h-6 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                    </button>
-                    <button onClick={() => setView('HOME')} className="p-2 text-slate-300 hover:bg-slate-100 rounded-xl">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    </button>
-                  </div>
-                </div>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                  </span>
-                  <input type="text" placeholder="Cari No. Mesin..." className="w-full pl-11 pr-4 py-3 bg-slate-50 border-2 border-slate-100 rounded-xl focus:border-red-500 focus:bg-white outline-none transition-all font-black text-sm uppercase" value={machineFilter} onChange={(e) => setMachineFilter(e.target.value)} />
+          <div className="bg-white rounded-[2.5rem] shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in">
+            <div className="p-6 border-b border-slate-100">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-lg font-black text-slate-800 uppercase italic">Audit <span className="text-red-600">History</span></h2>
+                <div className="flex gap-2">
+                  <button onClick={fetchData} className="p-2 text-red-600 hover:bg-red-50 rounded-xl transition-all">
+                     <svg className={`w-6 h-6 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                  </button>
+                  <button onClick={() => setView('HOME')} className="p-2 text-slate-300 hover:bg-slate-100 rounded-xl">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                  </button>
                 </div>
               </div>
-              
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead className="bg-slate-50">
-                    <tr>
-                      <th className="px-5 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest">Detail Mesin</th>
-                      <th className="px-5 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest text-center">Tgl Cleaning</th>
-                      <th className="px-5 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest text-right">Status Target</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 text-[11px]">
-                    {filteredLogs.length > 0 ? filteredLogs.map((log: any, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
-                        <td className="px-5 py-4">
-                          <div className="flex flex-col">
-                            <span className="font-black text-red-700 bg-red-50 px-2 py-0.5 rounded-lg w-fit mb-1 border border-red-100 uppercase italic">{log.nomorMesin}</span>
-                            <span className={`font-bold uppercase tracking-tighter ${log.isOperatorLate ? 'text-red-600' : 'text-slate-500'}`}>
-                              {log.namaOperator}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="px-5 py-4 text-center">
-                           <span className={`px-2 py-1 rounded-md font-black border ${
-                             log.isOperatorLate ? 'bg-red-50 text-red-700 border-red-100' : 'bg-white text-slate-600 border-slate-200'
-                           }`}>
-                              {formatDateDisplay(parseDate(log.tanggalCleaning))}
-                           </span>
-                        </td>
-                        <td className="px-5 py-4 text-right">
-                           <div className={`inline-flex flex-col items-end px-3 py-1 rounded-xl border-2 transition-all ${
-                             log.isTargetMissed ? 'bg-red-600 text-white border-red-800' : 'bg-emerald-600 text-white border-emerald-800 shadow-md shadow-emerald-50'
-                           }`}>
-                              <span className="font-black uppercase tracking-tight">
-                                {formatDateDisplay(log.nextCleaningDate)}
-                              </span>
-                              <span className="text-[7px] font-black opacity-80 uppercase leading-none mt-0.5">
-                                {log.isTargetMissed ? 'LEWAT TARGET' : 'AMAN'}
-                              </span>
-                           </div>
-                        </td>
-                      </tr>
-                    )) : (
-                      <tr>
-                        <td colSpan={3} className="px-5 py-12 text-center text-slate-400 font-black uppercase tracking-[0.2em] text-[10px]">
-                          {loading ? 'Sinkronisasi Data...' : 'Belum Ada Catatan'}
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </span>
+                <input type="text" placeholder="Cari No. Mesin..." className="w-full pl-11 pr-4 py-3 bg-slate-50 border-2 border-slate-100 rounded-xl focus:border-red-500 focus:bg-white outline-none transition-all font-black text-sm uppercase" value={machineFilter} onChange={(e) => setMachineFilter(e.target.value)} />
               </div>
             </div>
             
-            {/* FOOTER KHUSUS CHECK */}
-            <footer className="mt-8 text-center pb-8">
-              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.15em]">
-                Copyright &copy; 2026 <a href="https://bungasari.com/" target="_blank" rel="noopener noreferrer" className="text-red-600 font-black hover:underline decoration-red-600 underline-offset-4">PT Bungasari Flour Mills Indonesia</a>.
-              </p>
-            </footer>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead className="bg-slate-50">
+                  <tr>
+                    <th className="px-5 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest">Detail Mesin</th>
+                    <th className="px-5 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest text-center">Tgl Cleaning</th>
+                    <th className="px-5 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest text-right">Status Target</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-[11px]">
+                  {filteredLogs.length > 0 ? filteredLogs.map((log: any, idx) => (
+                    <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
+                      <td className="px-5 py-4">
+                        <div className="flex flex-col">
+                          <span className="font-black text-red-700 bg-red-50 px-2 py-0.5 rounded-lg w-fit mb-1 border border-red-100 uppercase italic">{log.nomorMesin}</span>
+                          <span className={`font-bold uppercase tracking-tighter ${log.isOperatorLate ? 'text-red-600' : 'text-slate-500'}`}>
+                            {log.namaOperator}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-5 py-4 text-center">
+                         <span className={`px-2 py-1 rounded-md font-black border ${
+                           log.isOperatorLate ? 'bg-red-50 text-red-700 border-red-100' : 'bg-white text-slate-600 border-slate-200'
+                         }`}>
+                            {formatDateDisplay(parseDate(log.tanggalCleaning))}
+                         </span>
+                      </td>
+                      <td className="px-5 py-4 text-right">
+                         <div className={`inline-flex flex-col items-end px-3 py-1 rounded-xl border-2 transition-all ${
+                           log.isTargetMissed ? 'bg-red-600 text-white border-red-800' : 'bg-emerald-600 text-white border-emerald-800 shadow-md shadow-emerald-50'
+                         }`}>
+                            <span className="font-black uppercase tracking-tight">
+                              {formatDateDisplay(log.nextCleaningDate)}
+                            </span>
+                            <span className="text-[7px] font-black opacity-80 uppercase leading-none mt-0.5">
+                              {log.isTargetMissed ? 'LEWAT TARGET' : 'AMAN'}
+                            </span>
+                         </div>
+                      </td>
+                    </tr>
+                  )) : (
+                    <tr>
+                      <td colSpan={3} className="px-5 py-12 text-center text-slate-400 font-black uppercase tracking-[0.2em] text-[10px]">
+                        {loading ? 'Sinkronisasi Data...' : 'Belum Ada Catatan'}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </main>
+
+      {/* FOOTER AREA - MENTOK BAWAH */}
+      <footer className="bg-white/80 backdrop-blur-sm border-t border-slate-200 py-6 flex-shrink-0">
+        <div className="container mx-auto px-4 text-center">
+          {view === 'HOME' ? (
+            <p className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5 flex-wrap">
+              Maintenance Logger &copy; 2026 Made With <span className="text-red-600 animate-pulse text-lg leading-none">❤️</span> By BFMI19048 All rights reserved
+            </p>
+          ) : (
+            <p className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-[0.15em]">
+              Copyright &copy; 2026 <a href="https://bungasari.com/" target="_blank" rel="noopener noreferrer" className="text-red-600 font-black hover:underline decoration-red-600 underline-offset-4">PT Bungasari Flour Mills Indonesia</a>.
+            </p>
+          )}
+        </div>
+      </footer>
     </div>
   );
 };
