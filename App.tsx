@@ -257,7 +257,7 @@ const App: React.FC = () => {
                  <div className="relative group">
                    <input 
                     type="text" 
-                    placeholder="Contoh: M-3001" 
+                    placeholder="Contoh: M3001" 
                     className="w-full bg-slate-50 border-2 border-slate-100 px-6 py-5 rounded-2xl text-center text-2xl font-black text-indigo-900 uppercase placeholder:text-slate-200 focus:border-indigo-500 focus:bg-white transition-all outline-none shadow-inner"
                     value={homeMachineInput}
                     onChange={(e) => setHomeMachineInput(e.target.value)}
